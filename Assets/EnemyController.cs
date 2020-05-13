@@ -1,12 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 public class EnemyController : MonoBehaviour
 {
-    public float lookRadius = 5f;
+    public int explosionRadius;
+    public float stealthRadius;
+    public float lookRadius;
     public bool Stealth;
     public Renderer rend;
     public Material active;
@@ -15,28 +16,25 @@ public class EnemyController : MonoBehaviour
     public GameObject Explosion;
     public ThirdPersonCharacter character;
     Transform target;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
-    // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
-
     IEnumerator EnemyEnable()
     {
         yield return new WaitForSeconds(2f);
         if (Stealth == false)
         {
-        agent.SetDestination(target.position);
-        rend.material = active;
-        Light.SetActive(true);
+            agent.SetDestination(target.position);
+            rend.material = active;
+            Light.SetActive(true);
         }
-    } 
+    }
 
-    // Update is called once per frame
     void Update()
     {
         float Distance = Vector3.Distance(target.position, transform.position);
@@ -52,21 +50,26 @@ public class EnemyController : MonoBehaviour
             Light.SetActive(false);
         }
 
-        if (Distance <=3)
+        if (Distance <= explosionRadius)
         {
             agent.SetDestination(target.position);
             rend.material = active;
             Light.SetActive(true);
             Light.GetComponent<Light>().intensity = 2;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().PlayerIsDead = true;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().playerDeath();
             Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-        if (Distance <= 1.5f && Stealth == false)
+        if (Distance <= stealthRadius && Stealth == false)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().PlayerIsDead = true;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().playerDeath();
             Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
+        }
+
+        if (FindObjectOfType<PlayerController>().undead == true)
+        {
+            agent.isStopped = true;
         }
 
         {
@@ -85,7 +88,11 @@ public class EnemyController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, stealthRadius);
     }
-
-
 }
+
+

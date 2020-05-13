@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class StepsController : MonoBehaviour
 {
     public Rigidbody PlayerRb;
@@ -9,7 +7,6 @@ public class StepsController : MonoBehaviour
     public GameObject PlayerController;
     public float Speed;
     public float Volume;
-
     private void Update()
     {
         if (PlayerController.GetComponent<PlayerController>().Crouch == false)
@@ -17,10 +14,7 @@ public class StepsController : MonoBehaviour
             Speed = 0.3f; Volume = 0.5f;
         }
         else { Speed = 0.5f; Volume = 0.2f; }
-
     }
-
-
     IEnumerator Start()
     {
         while (true)
