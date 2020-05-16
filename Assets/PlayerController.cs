@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 using UnityStandardAssets.Characters.ThirdPerson;
 public class PlayerController : MonoBehaviour
 {
+    public Renderer rend;
+    public Material invis;
+    public Material vis;
     public Camera cam;
-    public GameObject Light;
+    public GameObject LightYellow;
+    public GameObject LightBlue;
     public NavMeshAgent agent;
     public ThirdPersonCharacter character;
     public bool PlayerIsDead;
@@ -13,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool Crouch = false;
     public bool Win = false;
     public bool undead = false;
+    public bool invisible = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "DoorTrigger")
@@ -52,12 +58,12 @@ public class PlayerController : MonoBehaviour
             if (Crouch == false)
             {
                 Crouch = true;
-                Light.GetComponent<Light>().intensity = 4f;
+                LightYellow.GetComponent<Light>().intensity = 4f;
             }
             else if (Crouch == true)
             {
                 Crouch = false;
-                Light.GetComponent<Light>().intensity = 7f;
+                LightYellow.GetComponent<Light>().intensity = 7f;
             }
         }
         
@@ -73,6 +79,30 @@ public class PlayerController : MonoBehaviour
             }
         }//movment animation
     }
+    //public void InvisiblePlayer()
+    //{
+
+
+    //}
+
+     public IEnumerator InvisiblePlayer()
+    {
+        invisible = true;
+        rend.material = invis;
+        LightYellow.SetActive(false);
+        LightBlue.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        PlayerIsVisible();
+    }
+
+    public void PlayerIsVisible() {
+        invisible = false;
+        rend.material = vis;
+        LightYellow.SetActive(true);
+        LightBlue.SetActive(false);
+
+    }
+
     public void playerDeath()
     {
 
@@ -83,7 +113,7 @@ public class PlayerController : MonoBehaviour
             agent.isStopped = true;
             character.Move(Vector3.zero, false, false);
             animator.SetBool("DeathTrigger", true);
-            Light.GetComponent<Light>().intensity = 2f;
+            LightYellow.GetComponent<Light>().intensity = 2f;
         }
             
         

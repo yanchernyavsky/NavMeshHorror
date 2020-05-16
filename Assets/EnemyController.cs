@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator EnemyEnable()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
         if (Stealth == false)
         {
             agent.SetDestination(target.position);
@@ -40,6 +40,10 @@ public class EnemyController : MonoBehaviour
         float Distance = Vector3.Distance(target.position, transform.position);
         Stealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Crouch;
 
+        if (FindObjectOfType<PlayerController>().invisible==true)
+        {
+            return;
+        }
         if (Distance <= lookRadius)
         {
             StartCoroutine("EnemyEnable");
