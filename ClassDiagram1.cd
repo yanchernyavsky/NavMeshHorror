@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CameraFollow">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASgAAAAAgAAAAAAIAAAAAAAAAAAAAACAAIAAAAAIAA=</HashCode>
+      <FileName>Assets\CameraFollow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyController">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAACIAAQAAICQAAgQEAAAAAAAAAAgBJAgAAAA=</HashCode>
+      <FileName>Assets\EnemyController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exitgame">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\exitgame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="friend">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAACAAAQAAIAQAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\friend.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelChanger">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FCQAAAAAQCIAAAAAAAAAAAAAAAAAABAAAAQAAAAQAAA=</HashCode>
+      <FileName>Assets\LevelChanger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BARIBggAAKEAiUAAAGAAgAACAABAAAQAQAAgAAAIJAA=</HashCode>
+      <FileName>Assets\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sphere">
+    <Position X="7.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\sphere.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StepsController">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAACAAAAAAAAAAAAAFAAAQAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\StepsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

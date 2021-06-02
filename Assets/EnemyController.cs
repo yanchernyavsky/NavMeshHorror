@@ -62,13 +62,16 @@ public class EnemyController : MonoBehaviour
             Light.GetComponent<Light>().intensity = 2;
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().playerDeath();
             Instantiate(Explosion, transform.position, transform.rotation);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
         if (Distance <= stealthRadius && Stealth == false)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().playerDeath();
             Instantiate(Explosion, transform.position, transform.rotation);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
+
         }
 
         if (FindObjectOfType<PlayerController>().undead == true)
@@ -76,6 +79,7 @@ public class EnemyController : MonoBehaviour
             agent.isStopped = true;
         }
 
+        if (agent.isActiveAndEnabled)
         {
             if (agent.remainingDistance > agent.stoppingDistance)
             {

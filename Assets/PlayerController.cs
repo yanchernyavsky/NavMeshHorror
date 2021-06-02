@@ -4,6 +4,9 @@ using UnityEngine.AI;
 using UnityStandardAssets.Characters.ThirdPerson;
 public class PlayerController : MonoBehaviour
 {
+    public GameObject crouchbutton;
+    public FixedJoystick joystick;
+    public GameObject pause;
     public Renderer rend;
     public Material invis;
     public Material vis;
@@ -11,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject LightYellow;
     public GameObject LightBlue;
     public NavMeshAgent agent;
+    public Rigidbody rigidbody;
     public ThirdPersonCharacter character;
     public bool PlayerIsDead;
     public Animator animator;
@@ -41,41 +45,53 @@ public class PlayerController : MonoBehaviour
         animator.GetComponent<Animator>();
         PlayerIsDead = false;
     }
+    
+    public void SetCrouch()
+    {
+        Crouch =! Crouch;
+    }
+   
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)&& PlayerIsDead == false)
-        {
-           Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-           RaycastHit hit;
+        //if (Input.GetMouseButtonDown(0) && PlayerIsDead == false)
+        //{
+        //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
 
-           if (Physics.Raycast(ray, out hit))
-           {
-                agent.SetDestination(hit.point);
-           }
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerIsDead == false)
+        //    if (Physics.Raycast(ray, out hit))
+        //    {
+        //        agent.SetDestination(hit.point);
+        //    }
+        //}
+
+        //var velocity = new Vector3(joystick.Vertical, 0f, joystick.Horizontal) * 20f;
+        transform.eulerAngles = new Vector3(0, Mathf.Atan2(joystick.Horizontal, joystick.Vertical) * 180 / Mathf.PI+45f, 0);
+        var velocity = transform.forward;
+
+
+        if (/*Input.GetKeyDown(KeyCode.Space) &&*/ PlayerIsDead == false)
         {
-            if (Crouch == false)
+            if (Crouch == true)
             {
-                Crouch = true;
+                //Crouch = true;
                 LightYellow.GetComponent<Light>().intensity = 4f;
             }
-            else if (Crouch == true)
+            else if (Crouch == false)
             {
-                Crouch = false;
+                //Crouch = false;
                 LightYellow.GetComponent<Light>().intensity = 7f;
             }
         }
         
         
         {
-            if (agent.remainingDistance > agent.stoppingDistance)
+            if ( joystick.Vertical == 0 && joystick.Horizontal == 0) //agent.remainingDistance > agent.stoppingDistance)
             {
-                character.Move(agent.desiredVelocity, Crouch, false);
+                character.Move(Vector3.zero, Crouch, false);
             }
             else
             {
-                character.Move(Vector3.zero, Crouch, false);
+                character.Move(velocity, Crouch, false);
             }
         }//movment animation
     }
@@ -109,6 +125,9 @@ public class PlayerController : MonoBehaviour
         if (!undead)
         {
             PlayerIsDead = true;
+            joystick.gameObject.SetActive(false);
+            crouchbutton.gameObject.SetActive(false);
+            pause.SetActive(false);
             //agent.SetDestination(transform.position);
             agent.isStopped = true;
             character.Move(Vector3.zero, false, false);
